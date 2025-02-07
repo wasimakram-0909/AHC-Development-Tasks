@@ -1,87 +1,45 @@
+
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
-import { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-
-const SAMPLE_PRODUCTS: Product[] = [
-  {
-    id: "1",
-    name: "Arabian Oud Perfume",
-    name_ar: "عطر العود العربي",
-    price: 899.99,
-    image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
-    category: "Perfumes",
-    description: "Luxurious Arabian oud perfume with deep, exotic notes of agarwood",
-    description_ar: "عطر عود عربي فاخر برائحة خشب العود العميقة والفريدة"
-  },
-  {
-    id: "2",
-    name: "Handwoven Persian Carpet",
-    name_ar: "سجادة فارسية منسوجة يدويًا",
-    price: 3999.99,
-    image: "https://images.unsplash.com/photo-1584285405429-136bf988919c",
-    category: "Home",
-    description: "Traditional handwoven Persian carpet with intricate Islamic patterns",
-    description_ar: "سجادة فارسية تقليدية منسوجة يدويًا بنقوش إسلامية معقدة"
-  },
-  {
-    id: "3",
-    name: "Moroccan Tea Set",
-    name_ar: "طقم شاي مغربي",
-    price: 599.99,
-    image: "https://images.unsplash.com/photo-1578937014186-bacd3628d401",
-    category: "Kitchen",
-    description: "Authentic Moroccan tea set with ornate silver teapot and glasses",
-    description_ar: "طقم شاي مغربي أصيل مع إبريق فضي مزخرف وأكواب"
-  },
-  {
-    id: "4",
-    name: "Arabic Coffee Dallah",
-    name_ar: "دلة قهوة عربية",
-    price: 449.99,
-    image: "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b",
-    category: "Kitchen",
-    description: "Traditional Arabic coffee pot (Dallah) made of brass with gold finish",
-    description_ar: "دلة قهوة عربية تقليدية مصنوعة من النحاس مع لمسات ذهبية"
-  },
-  {
-    id: "5",
-    name: "Embroidered Abaya",
-    name_ar: "عباية مطرزة",
-    price: 799.99,
-    image: "https://images.unsplash.com/photo-1559503452-527aa3f0536e",
-    category: "Fashion",
-    description: "Elegant black abaya with intricate golden embroidery",
-    description_ar: "عباية سوداء أنيقة مع تطريز ذهبي دقيق"
-  },
-  {
-    id: "6",
-    name: "Luxury Prayer Mat",
-    name_ar: "سجادة صلاة فاخرة",
-    price: 199.99,
-    image: "https://images.unsplash.com/photo-1591284353939-0d4b2c0c8d4a",
-    category: "Accessories",
-    description: "Premium quality prayer mat with intricate design",
-    description_ar: "سجادة صلاة فاخرة بتصميم معقد"
-  }
-];
-
-const FEATURED_CATEGORIES = [
-  {
-    id: 1,
-    name: "Perfumes",
-    image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f"
-  },
-  {
-    id: 2,
-    name: "Home Decor",
-    image: "https://images.unsplash.com/photo-1584285405429-136bf988919c"
-  }
-];
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Product } from "@/types/product";
 
 const Index = () => {
+  const { data: products, isLoading: isLoadingProducts } = useQuery({
+    queryKey: ['featured-products'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .limit(6);
+      
+      if (error) throw error;
+      return data as Product[];
+    }
+  });
+
+  const { data: categories, isLoading: isLoadingCategories } = useQuery({
+    queryKey: ['featured-categories'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('category')
+        .limit(2);
+      
+      if (error) throw error;
+      return data.map(item => ({
+        id: item.category,
+        name: item.category,
+        image: products?.find(p => p.category === item.category)?.image || ''
+      }));
+    },
+    enabled: !!products
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -120,28 +78,36 @@ const Index = () => {
         <h2 className="text-3xl font-bold text-center mb-12">
           Featured Categories
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {FEATURED_CATEGORIES.map((category) => (
-            <Link 
-              key={category.id}
-              to={`/categories`}
-              className="relative group overflow-hidden rounded-lg hover-lift"
-            >
-              <div className="aspect-[16/9] overflow-hidden">
-                <img 
-                  src={category.image} 
-                  alt={category.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <h3 className="text-2xl font-bold text-white">
-                  {category.name}
-                </h3>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {isLoadingCategories ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[1, 2].map((i) => (
+              <div key={i} className="aspect-[16/9] bg-neutral-light animate-pulse rounded-lg" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {categories?.map((category) => (
+              <Link 
+                key={category.id}
+                to={`/categories`}
+                className="relative group overflow-hidden rounded-lg hover-lift"
+              >
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src={category.image} 
+                    alt={category.name}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-white">
+                    {category.name}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Featured Products */}
@@ -150,14 +116,22 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-center mb-12">
             Featured Products
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SAMPLE_PRODUCTS.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-              />
-            ))}
-          </div>
+          {isLoadingProducts ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="glass p-4 rounded-lg aspect-[3/4] animate-pulse" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products?.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                />
+              ))}
+            </div>
+          )}
           <div className="text-center mt-12">
             <Link to="/products">
               <Button variant="outline" size="lg" className="hover-lift">
