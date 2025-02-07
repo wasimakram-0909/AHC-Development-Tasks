@@ -73,20 +73,16 @@ const FEATURED_CATEGORIES = [
   {
     id: 1,
     name: "Perfumes",
-    nameAr: "العطور",
     image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f"
   },
   {
     id: 2,
     name: "Home Decor",
-    nameAr: "ديكور المنزل",
     image: "https://images.unsplash.com/photo-1584285405429-136bf988919c"
   }
 ];
 
 const Index = () => {
-  const [language, setLanguage] = useState<"en" | "ar">("en");
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -102,16 +98,14 @@ const Index = () => {
         />
         <div className="relative text-center text-white z-10 container mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            {language === "en" ? "Discover Arabian Treasures" : "اكتشف الكنوز العربية"}
+            Discover Arabian Treasures
           </h1>
           <p className="text-xl mb-8">
-            {language === "en" 
-              ? "Explore authentic Arabian products curated just for you" 
-              : "اكتشف المنتجات العربية الأصيلة المختارة خصيصاً لك"}
+            Explore authentic Arabian products curated just for you
           </p>
           <Link to="/products">
             <Button size="lg" className="hover-lift">
-              {language === "en" ? "Shop Now" : "تسوق الآن"}
+              Shop Now
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
@@ -121,7 +115,7 @@ const Index = () => {
       {/* Featured Categories */}
       <section className="py-16 container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">
-          {language === "en" ? "Featured Categories" : "الفئات المميزة"}
+          Featured Categories
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {FEATURED_CATEGORIES.map((category) => (
@@ -133,13 +127,13 @@ const Index = () => {
               <div className="aspect-[16/9] overflow-hidden">
                 <img 
                   src={category.image} 
-                  alt={language === "en" ? category.name : category.nameAr}
+                  alt={category.name}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                 <h3 className="text-2xl font-bold text-white">
-                  {language === "en" ? category.name : category.nameAr}
+                  {category.name}
                 </h3>
               </div>
             </Link>
@@ -151,21 +145,20 @@ const Index = () => {
       <section className="py-16 bg-neutral-light">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
-            {language === "en" ? "Featured Products" : "المنتجات المميزة"}
+            Featured Products
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in">
             {SAMPLE_PRODUCTS.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
-                language={language}
               />
             ))}
           </div>
           <div className="text-center mt-12">
             <Link to="/products">
               <Button variant="outline" size="lg" className="hover-lift">
-                {language === "en" ? "View All Products" : "عرض جميع المنتجات"}
+                View All Products
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
