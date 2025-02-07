@@ -3,51 +3,15 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
-const CATEGORIES = [
-  {
-    id: 1,
-    name: "Perfumes",
-    image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
-    description: "Discover luxurious Arabian fragrances",
-    productCount: 24
-  },
-  {
-    id: 2,
-    name: "Home Decor",
-    image: "https://images.unsplash.com/photo-1584285405429-136bf988919c",
-    description: "Traditional and modern Arabian home decoration",
-    productCount: 18
-  },
-  {
-    id: 3,
-    name: "Fashion",
-    image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3",
-    description: "Traditional and modern Arabian fashion",
-    productCount: 32
-  },
-  {
-    id: 4,
-    name: "Kitchen",
-    image: "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b",
-    description: "Traditional Arabic kitchen essentials",
-    productCount: 15
-  },
-  {
-    id: 5,
-    name: "Accessories",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-    description: "Complete your look with Arabian accessories",
-    productCount: 45
-  },
-  {
-    id: 6,
-    name: "Food",
-    image: "https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd",
-    description: "Traditional Arabian delicacies",
-    productCount: 20
-  }
-];
+interface CategoryData {
+  name: string;
+  image: string;
+  description: string;
+  productCount: number;
+}
 
 const CategorySkeleton = () => (
   <div className="relative overflow-hidden rounded-lg">
@@ -62,10 +26,77 @@ const CategorySkeleton = () => (
 
 const Categories = () => {
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<CategoryData[]>([]);
+  const { toast } = useToast();
+
+  // Category descriptions mapping
+  const categoryDescriptions: { [key: string]: string } = {
+    "Perfumes": "Discover luxurious Arabian fragrances",
+    "Home Decor": "Traditional and modern Arabian home decoration",
+    "Fashion": "Traditional and modern Arabian fashion",
+    "Kitchen": "Traditional Arabic kitchen essentials",
+    "Accessories": "Complete your look with Arabian accessories",
+    "Food": "Traditional Arabian delicacies",
+    "Art": "Beautiful Arabic and Islamic art pieces"
+  };
+
+  // Image mapping for categories
+  const categoryImages: { [key: string]: string } = {
+    "Perfumes": "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
+    "Home Decor": "https://images.unsplash.com/photo-1584285405429-136bf988919c",
+    "Fashion": "https://images.unsplash.com/photo-1469041797191-50ace28483c3",
+    "Kitchen": "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b",
+    "Accessories": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+    "Food": "https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd",
+    "Art": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+  };
+
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('products')
+        .select('category')
+        .not('category', 'is', null);
+
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to fetch categories",
+        });
+        return;
+      }
+
+      // Count products per category
+      const categoryCounts: { [key: string]: number } = {};
+      data.forEach(item => {
+        categoryCounts[item.category] = (categoryCounts[item.category] || 0) + 1;
+      });
+
+      // Transform into CategoryData array
+      const categoryData: CategoryData[] = Object.entries(categoryCounts).map(([name, count]) => ({
+        name,
+        image: categoryImages[name] || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+        description: categoryDescriptions[name] || `Explore our ${name} collection`,
+        productCount: count
+      }));
+
+      setCategories(categoryData);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to fetch categories",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => setLoading(false), 1000);
+    fetchCategories();
   }, []);
 
   return (
@@ -84,9 +115,9 @@ const Categories = () => {
             ? Array.from({ length: 6 }).map((_, index) => (
                 <CategorySkeleton key={index} />
               ))
-            : CATEGORIES.map((category) => (
+            : categories.map((category) => (
                 <Link
-                  key={category.id}
+                  key={category.name}
                   to={`/products?category=${category.name}`}
                   className="group relative overflow-hidden rounded-lg hover-lift"
                 >
