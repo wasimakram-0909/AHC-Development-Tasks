@@ -1,16 +1,56 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement registration logic with Supabase
+    setIsLoading(true);
+
+    try {
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            first_name: name.split(' ')[0],
+            last_name: name.split(' ').slice(1).join(' '),
+          },
+        },
+      });
+
+      if (signUpError) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: signUpError.message,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Registration successful! Please check your email to verify your account.",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An unexpected error occurred",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -64,8 +104,8 @@ const Register = () => {
             />
           </div>
 
-          <Button type="submit" className="w-full">
-            Sign Up
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Creating Account..." : "Sign Up"}
           </Button>
         </form>
 
