@@ -22,7 +22,7 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
   const location = useLocation();
-  const { cartItems } = useCart();
+  const { cartItems, wishlistItems } = useCart();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -116,9 +116,14 @@ const Navigation = () => {
               )}
             </Button>
           </Link>
-          <Link to="/wishlist">
+          <Link to="/wishlist" className="relative">
             <Button variant="ghost" size="icon" className="hover-lift">
               <Heart className="h-5 w-5" />
+              {wishlistItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {wishlistItems.length}
+                </span>
+              )}
             </Button>
           </Link>
           {session ? (

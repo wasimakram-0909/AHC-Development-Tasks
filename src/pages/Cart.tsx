@@ -1,17 +1,18 @@
 
 import { useState } from "react";
-import { Minus, Plus, X } from "lucide-react";
+import { Minus, Plus, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/product";
 import { useCart } from "@/contexts/CartContext";
 import Navigation from "@/components/Navigation";
+import { Link } from "react-router-dom";
 
 interface CartItem extends Product {
   quantity: number;
 }
 
 const Cart = () => {
-  const { cartItems: items, removeFromCart, updateQuantity } = useCart();
+  const { cartItems: items, removeFromCart } = useCart();
   const [cartItems, setCartItems] = useState<CartItem[]>(
     items.map(item => ({ ...item, quantity: 1 }))
   );
@@ -39,6 +40,26 @@ const Cart = () => {
   };
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  if (cartItems.length === 0) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="container mx-auto pt-24 px-4">
+          <div className="text-center py-16">
+            <ShoppingCart className="mx-auto h-16 w-16 text-neutral mb-4" />
+            <h2 className="text-2xl font-semibold mb-4">Your cart is empty</h2>
+            <p className="text-neutral mb-8">Looks like you haven't added any items to your cart yet.</p>
+            <Link to="/products">
+              <Button size="lg">
+                Continue Shopping
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

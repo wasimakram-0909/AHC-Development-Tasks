@@ -12,6 +12,7 @@ interface CartContextType {
   removeFromWishlist: (productId: string) => void;
   isInCart: (productId: string) => boolean;
   isInWishlist: (productId: string) => boolean;
+  updateQuantity: (productId: string, change: number) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -37,6 +38,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       title: "Removed from Cart",
       description: "Item has been removed from your cart.",
     });
+  };
+
+  const updateQuantity = (productId: string, change: number) => {
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.id === productId
+          ? { ...item, quantity: Math.max(1, (item.quantity || 1) + change) }
+          : item
+      )
+    );
   };
 
   const addToWishlist = (product: Product) => {
@@ -74,7 +85,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       addToWishlist,
       removeFromWishlist,
       isInCart,
-      isInWishlist
+      isInWishlist,
+      updateQuantity
     }}>
       {children}
     </CartContext.Provider>
