@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Product } from "@/types/product";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   const { data: products, isLoading: isLoadingProducts } = useQuery({
     queryKey: ['featured-products'],
     queryFn: async () => {
@@ -40,6 +42,11 @@ const Index = () => {
     enabled: !!products
   });
 
+  const handleViewAllProducts = () => {
+    navigate('/products');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -65,7 +72,7 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/categories">
-              <Button size="lg" variant="outline" className="hover-lift text-white border-white hover:bg-white/10 text-lg px-8">
+              <Button size="lg" variant="outline" className="hover-lift bg-transparent text-white border-white hover:bg-white/10 text-lg px-8">
                 Explore Categories
               </Button>
             </Link>
@@ -133,12 +140,15 @@ const Index = () => {
             </div>
           )}
           <div className="text-center mt-12">
-            <Link to="/products">
-              <Button variant="outline" size="lg" className="hover-lift">
-                View All Products
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="hover-lift"
+              onClick={handleViewAllProducts}
+            >
+              View All Products
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
@@ -147,3 +157,4 @@ const Index = () => {
 };
 
 export default Index;
+
