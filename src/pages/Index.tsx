@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
@@ -10,62 +9,62 @@ const SAMPLE_PRODUCTS: Product[] = [
   {
     id: "1",
     name: "Arabian Oud Perfume",
-    nameAr: "عطر العود العربي",
+    name_ar: "عطر العود العربي",
     price: 899.99,
     image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
     category: "Perfumes",
     description: "Luxurious Arabian oud perfume with deep, exotic notes of agarwood",
-    descriptionAr: "عطر عود عربي فاخر برائحة خشب العود العميقة والفريدة"
+    description_ar: "عطر عود عربي فاخر برائحة خشب العود العميقة والفريدة"
   },
   {
     id: "2",
     name: "Handwoven Persian Carpet",
-    nameAr: "سجادة فارسية منسوجة يدويًا",
+    name_ar: "سجادة فارسية منسوجة يدويًا",
     price: 3999.99,
     image: "https://images.unsplash.com/photo-1584285405429-136bf988919c",
     category: "Home",
     description: "Traditional handwoven Persian carpet with intricate Islamic patterns",
-    descriptionAr: "سجادة فارسية تقليدية منسوجة يدويًا بنقوش إسلامية معقدة"
+    description_ar: "سجادة فارسية تقليدية منسوجة يدويًا بنقوش إسلامية معقدة"
   },
   {
     id: "3",
     name: "Moroccan Tea Set",
-    nameAr: "طقم شاي مغربي",
+    name_ar: "طقم شاي مغربي",
     price: 599.99,
     image: "https://images.unsplash.com/photo-1578937014186-bacd3628d401",
     category: "Kitchen",
     description: "Authentic Moroccan tea set with ornate silver teapot and glasses",
-    descriptionAr: "طقم شاي مغربي أصيل مع إبريق فضي مزخرف وأكواب"
+    description_ar: "طقم شاي مغربي أصيل مع إبريق فضي مزخرف وأكواب"
   },
   {
     id: "4",
     name: "Arabic Coffee Dallah",
-    nameAr: "دلة قهوة عربية",
+    name_ar: "دلة قهوة عربية",
     price: 449.99,
     image: "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b",
     category: "Kitchen",
     description: "Traditional Arabic coffee pot (Dallah) made of brass with gold finish",
-    descriptionAr: "دلة قهوة عربية تقليدية مصنوعة من النحاس مع لمسات ذهبية"
+    description_ar: "دلة قهوة عربية تقليدية مصنوعة من النحاس مع لمسات ذهبية"
   },
   {
     id: "5",
     name: "Embroidered Abaya",
-    nameAr: "عباية مطرزة",
+    name_ar: "عباية مطرزة",
     price: 799.99,
     image: "https://images.unsplash.com/photo-1559503452-527aa3f0536e",
     category: "Fashion",
     description: "Elegant black abaya with intricate golden embroidery",
-    descriptionAr: "عباية سوداء أنيقة مع تطريز ذهبي دقيق"
+    description_ar: "عباية سوداء أنيقة مع تطريز ذهبي دقيق"
   },
   {
     id: "6",
     name: "Luxury Prayer Mat",
-    nameAr: "سجادة صلاة فاخرة",
+    name_ar: "سجادة صلاة فاخرة",
     price: 199.99,
     image: "https://images.unsplash.com/photo-1591284353939-0d4b2c0c8d4a",
     category: "Accessories",
     description: "Premium quality prayer mat with intricate design",
-    descriptionAr: "سجادة صلاة فاخرة بتصميم معقد"
+    description_ar: "سجادة صلاة فاخرة بتصميم معقد"
   }
 ];
 

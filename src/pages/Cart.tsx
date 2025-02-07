@@ -13,12 +13,12 @@ const Cart = () => {
     {
       id: "1",
       name: "Arabian Perfume",
-      nameAr: "عطر عربي",
+      name_ar: "عطر عربي",
       price: 499.99,
       image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
       category: "Perfumes",
       description: "Luxurious Arabian perfume with deep, exotic notes",
-      descriptionAr: "عطر عربي فاخر بروائح عميقة وغريبة",
+      description_ar: "عطر عربي فاخر بروائح عميقة وغريبة",
       quantity: 1
     }
   ]);
