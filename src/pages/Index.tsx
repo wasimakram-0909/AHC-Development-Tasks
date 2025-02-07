@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
@@ -52,20 +52,20 @@ const SAMPLE_PRODUCTS: Product[] = [
     name: "Embroidered Abaya",
     nameAr: "عباية مطرزة",
     price: 799.99,
-    image: "https://images.unsplash.com/photo-1611509533710-51542cd5f0ff",
+    image: "https://images.unsplash.com/photo-1559503452-527aa3f0536e",
     category: "Fashion",
     description: "Elegant black abaya with intricate golden embroidery",
     descriptionAr: "عباية سوداء أنيقة مع تطريز ذهبي دقيق"
   },
   {
     id: "6",
-    name: "Arabian Dates Gift Box",
-    nameAr: "علبة تمور عربية فاخرة",
-    price: 299.99,
-    image: "https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd",
-    category: "Food",
-    description: "Premium selection of Ajwa and Medjool dates in a luxury gift box",
-    descriptionAr: "تشكيلة فاخرة من تمور العجوة والمجدول في علبة هدايا فاخرة"
+    name: "Luxury Prayer Mat",
+    nameAr: "سجادة صلاة فاخرة",
+    price: 199.99,
+    image: "https://images.unsplash.com/photo-1591284353939-0d4b2c0c8d4a",
+    category: "Accessories",
+    description: "Premium quality prayer mat with intricate design",
+    descriptionAr: "سجادة صلاة فاخرة بتصميم معقد"
   }
 ];
 
@@ -88,27 +88,31 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ 
-            backgroundImage: 'url(https://images.unsplash.com/photo-1466442929976-97f336a657be)',
-            filter: 'brightness(0.7)'
-          }}
-        />
-        <div className="relative text-center text-white z-10 container mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Discover Arabian Treasures
+      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-900 via-primary to-secondary">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1466442929976-97f336a657be')] bg-cover bg-center"></div>
+        </div>
+        <div className="relative text-center text-white z-10 container mx-auto px-4 py-20">
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 animate-fade-in">
+            Discover Arabian<br />Treasures
           </h1>
-          <p className="text-xl mb-8">
-            Explore authentic Arabian products curated just for you
+          <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto">
+            Explore our curated collection of authentic Arabian luxury goods, 
+            from exquisite perfumes to handcrafted treasures
           </p>
-          <Link to="/products">
-            <Button size="lg" className="hover-lift">
-              Shop Now
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/products">
+              <Button size="lg" className="hover-lift bg-accent hover:bg-accent/90 text-black text-lg px-8">
+                Shop Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/categories">
+              <Button size="lg" variant="outline" className="hover-lift text-white border-white hover:bg-white/10 text-lg px-8">
+                Explore Categories
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -147,7 +151,7 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-center mb-12">
             Featured Products
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SAMPLE_PRODUCTS.map((product) => (
               <ProductCard
                 key={product.id}

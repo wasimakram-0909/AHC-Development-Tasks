@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
@@ -166,7 +165,7 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <main className="container mx-auto pt-24 px-4">
+      <main className="container mx-auto pt-24 px-2 md:px-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <h1 className="text-3xl font-bold mb-4 md:mb-0">All Products</h1>
@@ -193,7 +192,7 @@ const Products = () => {
 
         {/* Filters */}
         {showFilters && (
-          <div className="mb-8 p-4 glass rounded-lg animate-in">
+          <div className="mb-8 p-4 bg-white rounded-lg shadow-lg animate-in">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="font-semibold mb-3">Categories</h3>
@@ -234,7 +233,6 @@ const Products = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {loading ? (
-            // Show skeleton loaders while loading
             Array.from({ length: 8 }).map((_, index) => (
               <ProductCard key={index} product={{} as Product} loading={true} />
             ))

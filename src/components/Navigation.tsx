@@ -29,7 +29,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="glass fixed w-full z-50 px-4 py-3">
+    <nav className="glass fixed w-full z-50 px-2 py-3">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Button
@@ -72,7 +72,7 @@ const Navigation = () => {
           </Link>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2">
           <Link to="/cart">
             <Button variant="ghost" size="icon" className="hover-lift">
               <ShoppingCart className="h-5 w-5" />
