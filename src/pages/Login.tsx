@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,21 +25,24 @@ const Login = () => {
       if (error) {
         toast({
           variant: "destructive",
-          title: "Error",
+          title: "Login Failed",
           description: error.message,
+          duration: 5000,
         });
       } else {
         toast({
           title: "Success",
           description: "You have successfully logged in",
+          duration: 5000,
         });
         navigate("/");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
         description: "An unexpected error occurred",
+        duration: 5000,
       });
     } finally {
       setIsLoading(false);

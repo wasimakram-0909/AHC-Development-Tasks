@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Filter, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const CATEGORIES = ["All", "Perfumes", "Home", "Fashion", "Kitchen", "Accessories", "Food", "Art"];
 const PRICE_RANGES = ["All", "Under 200 SAR", "200-500 SAR", "500-1000 SAR", "Over 1000 SAR"];
@@ -30,7 +30,13 @@ const Products = () => {
         .select('*');
 
       if (error) {
-        throw error;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.message || "Failed to fetch products",
+          duration: 5000,
+        });
+        return;
       }
 
       if (data) {
@@ -41,7 +47,9 @@ const Products = () => {
         variant: "destructive",
         title: "Error",
         description: error.message || "Failed to fetch products",
+        duration: 5000,
       });
+      console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
     }
@@ -162,13 +170,17 @@ const Products = () => {
             Array.from({ length: 8 }).map((_, index) => (
               <ProductCard key={index} product={{} as Product} loading={true} />
             ))
-          ) : (
+          ) : filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
               />
             ))
+          ) : (
+            <div className="col-span-full text-center py-8">
+              <p className="text-lg text-gray-500">No products found matching your criteria</p>
+            </div>
           )}
         </div>
       </main>

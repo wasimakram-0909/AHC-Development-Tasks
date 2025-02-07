@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -30,23 +30,35 @@ const Register = () => {
       });
 
       if (signUpError) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: signUpError.message,
-        });
+        if (signUpError.message === "User already registered") {
+          toast({
+            variant: "destructive",
+            title: "Registration Failed",
+            description: "This email is already registered. Please try logging in instead.",
+            duration: 5000,
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Registration Failed",
+            description: signUpError.message,
+            duration: 5000,
+          });
+        }
       } else {
         toast({
           title: "Success",
           description: "Registration successful! Please check your email to verify your account.",
+          duration: 5000,
         });
         navigate("/login");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
         description: "An unexpected error occurred",
+        duration: 5000,
       });
     } finally {
       setIsLoading(false);
