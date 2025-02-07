@@ -1,4 +1,3 @@
-
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/product";
@@ -16,10 +15,11 @@ const ProductCard = ({ product, loading = false }: ProductCardProps) => {
   const [isAdding, setIsAdding] = useState(false);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("ar-SA", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "SAR",
-    }).format(price);
+      currencyDisplay: "code",
+    }).format(price).replace("SAR", "SAR");
   };
 
   const handleWishlist = () => {

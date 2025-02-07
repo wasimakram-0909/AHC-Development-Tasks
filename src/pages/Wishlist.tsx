@@ -3,6 +3,9 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import { useCart } from "@/contexts/CartContext";
 import ProductCard from "@/components/ProductCard";
+import { Button } from "@/components/ui/button";
+import { Product } from "@/types/product";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const { wishlistItems } = useCart();
@@ -26,7 +29,9 @@ const Wishlist = () => {
         ) : wishlistItems.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-neutral text-lg mb-4">Your wishlist is empty</p>
-            <Button>Continue Shopping</Button>
+            <Link to="/products">
+              <Button>Continue Shopping</Button>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

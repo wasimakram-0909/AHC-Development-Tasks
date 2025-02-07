@@ -1,8 +1,19 @@
 
 import { useState } from "react";
-import { ShoppingCart, Heart, User, Menu, X } from "lucide-react";
+import { ShoppingCart, Heart, LogOut, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +21,11 @@ const Navigation = () => {
 
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleLogout = () => {
+    // Implement logout logic here
+    console.log("User logged out");
   };
 
   return (
@@ -24,7 +40,7 @@ const Navigation = () => {
           >
             {isMenuOpen ? <X /> : <Menu />}
           </Button>
-          <Link to="/" className="text-2xl font-bold text-primary">متجر</Link>
+          <Link to="/" className="text-2xl font-bold text-primary">Store</Link>
         </div>
 
         <div className={`${isMenuOpen 
@@ -67,11 +83,25 @@ const Navigation = () => {
               <Heart className="h-5 w-5" />
             </Button>
           </Link>
-          <Link to="/login">
-            <Button variant="ghost" size="icon" className="hover-lift">
-              <User className="h-5 w-5" />
-            </Button>
-          </Link>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="ghost" size="icon" className="hover-lift">
+                <LogOut className="h-5 w-5" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure you want to logout?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  You will need to login again to access your account.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleLogout}>Logout</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </nav>
