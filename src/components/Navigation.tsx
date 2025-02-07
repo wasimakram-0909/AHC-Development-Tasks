@@ -3,18 +3,10 @@ import { useState } from "react";
 import { ShoppingCart, Heart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<"en" | "ar">("en");
   const location = useLocation();
-  const { toast } = useToast();
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "ar" : "en");
-    document.documentElement.classList.toggle("rtl");
-  };
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -35,27 +27,29 @@ const Navigation = () => {
           <Link to="/" className="text-2xl font-bold text-primary">متجر</Link>
         </div>
 
-        <div className={`lg:flex items-center space-x-8 ${isMenuOpen ? 'absolute top-full left-0 right-0 bg-white glass p-4 animate-slide-in' : 'hidden'}`}>
-          <Link to="/">
+        <div className={`${isMenuOpen 
+          ? 'absolute top-full left-0 right-0 bg-white shadow-lg p-4 lg:p-0 lg:shadow-none' 
+          : 'hidden'} lg:flex lg:static lg:bg-transparent items-center space-y-2 lg:space-y-0 lg:space-x-8`}>
+          <Link to="/" className="block lg:inline">
             <Button 
               variant={isActive("/") ? "default" : "ghost"} 
-              className="hover-lift"
+              className="w-full lg:w-auto hover-lift"
             >
               Home
             </Button>
           </Link>
-          <Link to="/products">
+          <Link to="/products" className="block lg:inline">
             <Button 
               variant={isActive("/products") ? "default" : "ghost"} 
-              className="hover-lift"
+              className="w-full lg:w-auto hover-lift"
             >
               Products
             </Button>
           </Link>
-          <Link to="/categories">
+          <Link to="/categories" className="block lg:inline">
             <Button 
               variant={isActive("/categories") ? "default" : "ghost"} 
-              className="hover-lift"
+              className="w-full lg:w-auto hover-lift"
             >
               Categories
             </Button>
@@ -78,13 +72,6 @@ const Navigation = () => {
               <User className="h-5 w-5" />
             </Button>
           </Link>
-          <Button
-            variant="outline"
-            onClick={toggleLanguage}
-            className="hover-lift"
-          >
-            {language.toUpperCase()}
-          </Button>
         </div>
       </div>
     </nav>
