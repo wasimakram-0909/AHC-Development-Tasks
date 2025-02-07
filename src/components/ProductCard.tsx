@@ -2,7 +2,7 @@
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/product";
-import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProps {
   product: Product;
@@ -10,13 +10,21 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, language }: ProductCardProps) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useCart();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("ar-SA", {
       style: "currency",
       currency: "SAR",
     }).format(price);
+  };
+
+  const handleWishlist = () => {
+    if (isInWishlist(product.id)) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   return (
@@ -31,10 +39,10 @@ const ProductCard = ({ product, language }: ProductCardProps) => {
           variant="ghost"
           size="icon"
           className="absolute top-2 right-2 hover:bg-white/50"
-          onClick={() => setIsWishlisted(!isWishlisted)}
+          onClick={handleWishlist}
         >
           <Heart
-            className={`h-5 w-5 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`}
+            className={`h-5 w-5 ${isInWishlist(product.id) ? "fill-red-500 text-red-500" : ""}`}
           />
         </Button>
       </div>
@@ -49,7 +57,11 @@ const ProductCard = ({ product, language }: ProductCardProps) => {
           <span className="text-lg font-bold text-primary">
             {formatPrice(product.price)}
           </span>
-          <Button variant="default" className="hover-lift">
+          <Button 
+            variant="default" 
+            className="hover-lift"
+            onClick={() => addToCart(product)}
+          >
             {language === "en" ? "Add to Cart" : "أضف إلى السلة"}
           </Button>
         </div>

@@ -2,15 +2,22 @@
 import { useState } from "react";
 import { ShoppingCart, Heart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState<"en" | "ar">("en");
+  const location = useLocation();
+  const { toast } = useToast();
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "ar" : "en");
     document.documentElement.classList.toggle("rtl");
+  };
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
   };
 
   return (
@@ -30,10 +37,29 @@ const Navigation = () => {
 
         <div className={`lg:flex items-center space-x-8 ${isMenuOpen ? 'absolute top-full left-0 right-0 bg-white glass p-4 animate-slide-in' : 'hidden'}`}>
           <Link to="/">
-            <Button variant="ghost" className="hover-lift">Home</Button>
+            <Button 
+              variant={isActive("/") ? "default" : "ghost"} 
+              className="hover-lift"
+            >
+              Home
+            </Button>
           </Link>
-          <Button variant="ghost" className="hover-lift">Products</Button>
-          <Button variant="ghost" className="hover-lift">Categories</Button>
+          <Link to="/products">
+            <Button 
+              variant={isActive("/products") ? "default" : "ghost"} 
+              className="hover-lift"
+            >
+              Products
+            </Button>
+          </Link>
+          <Link to="/categories">
+            <Button 
+              variant={isActive("/categories") ? "default" : "ghost"} 
+              className="hover-lift"
+            >
+              Categories
+            </Button>
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
