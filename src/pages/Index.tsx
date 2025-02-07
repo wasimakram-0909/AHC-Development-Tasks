@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -10,23 +9,63 @@ import { ArrowRight } from "lucide-react";
 const SAMPLE_PRODUCTS: Product[] = [
   {
     id: "1",
-    name: "Arabian Perfume",
-    nameAr: "عطر عربي",
-    price: 499.99,
+    name: "Arabian Oud Perfume",
+    nameAr: "عطر العود العربي",
+    price: 899.99,
     image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
     category: "Perfumes",
-    description: "Luxurious Arabian perfume with deep, exotic notes",
-    descriptionAr: "عطر عربي فاخر بروائح عميقة وغريبة"
+    description: "Luxurious Arabian oud perfume with deep, exotic notes of agarwood",
+    descriptionAr: "عطر عود عربي فاخر برائحة خشب العود العميقة والفريدة"
   },
   {
     id: "2",
-    name: "Traditional Carpet",
-    nameAr: "سجادة تقليدية",
-    price: 2999.99,
+    name: "Handwoven Persian Carpet",
+    nameAr: "سجادة فارسية منسوجة يدويًا",
+    price: 3999.99,
     image: "https://images.unsplash.com/photo-1584285405429-136bf988919c",
     category: "Home",
-    description: "Hand-woven traditional Arabian carpet",
-    descriptionAr: "سجادة عربية تقليدية منسوجة يدويًا"
+    description: "Traditional handwoven Persian carpet with intricate Islamic patterns",
+    descriptionAr: "سجادة فارسية تقليدية منسوجة يدويًا بنقوش إسلامية معقدة"
+  },
+  {
+    id: "3",
+    name: "Moroccan Tea Set",
+    nameAr: "طقم شاي مغربي",
+    price: 599.99,
+    image: "https://images.unsplash.com/photo-1578937014186-bacd3628d401",
+    category: "Kitchen",
+    description: "Authentic Moroccan tea set with ornate silver teapot and glasses",
+    descriptionAr: "طقم شاي مغربي أصيل مع إبريق فضي مزخرف وأكواب"
+  },
+  {
+    id: "4",
+    name: "Arabic Coffee Dallah",
+    nameAr: "دلة قهوة عربية",
+    price: 449.99,
+    image: "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b",
+    category: "Kitchen",
+    description: "Traditional Arabic coffee pot (Dallah) made of brass with gold finish",
+    descriptionAr: "دلة قهوة عربية تقليدية مصنوعة من النحاس مع لمسات ذهبية"
+  },
+  {
+    id: "5",
+    name: "Embroidered Abaya",
+    nameAr: "عباية مطرزة",
+    price: 799.99,
+    image: "https://images.unsplash.com/photo-1611509533710-51542cd5f0ff",
+    category: "Fashion",
+    description: "Elegant black abaya with intricate golden embroidery",
+    descriptionAr: "عباية سوداء أنيقة مع تطريز ذهبي دقيق"
+  },
+  {
+    id: "6",
+    name: "Arabian Dates Gift Box",
+    nameAr: "علبة تمور عربية فاخرة",
+    price: 299.99,
+    image: "https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd",
+    category: "Food",
+    description: "Premium selection of Ajwa and Medjool dates in a luxury gift box",
+    descriptionAr: "تشكيلة فاخرة من تمور العجوة والمجدول في علبة هدايا فاخرة"
   }
 ];
 
