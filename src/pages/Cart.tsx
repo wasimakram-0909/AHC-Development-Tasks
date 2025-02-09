@@ -18,7 +18,7 @@ const Cart = () => {
   );
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("ar-SA", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "SAR",
     }).format(price);
@@ -115,7 +115,7 @@ const Cart = () => {
             ))}
           </div>
 
-          <div className="glass p-6 rounded-lg h-fit">
+          <div className="glass p-6 rounded-lg h-fit sticky top-20">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
             <div className="space-y-2">
               <div className="flex justify-between">

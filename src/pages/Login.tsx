@@ -1,36 +1,60 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { notifySuccess, notifyError } from "@/components/ToastProvider"; 
-
+import { notifySuccess, notifyError } from "@/components/ToastProvider";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Function to validate email
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Funtion to handle email change and validation 
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    if (!validateEmail(newEmail)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // stopping login on error ..
+    if (emailError) {
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error, data} = await supabase.auth.signInWithPassword({
         email,
         password,
-      });
+      });      
 
       if (error) {
-        notifyError(`Login Failed: ${error.message}`)
+        notifyError(`Login Failed: ${error.message}`);
       } else {
         notifySuccess("You have successfully logged in");
+        localStorage.setItem("token",data?.session?.access_token);
+
+        // redirecting home page after successful login
         navigate("/home");
       }
-    } catch (error: any) {
-      notifyError(`An unexpected error occurred`)
-
+    } catch (error) {
+      notifyError("An unexpected error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -53,10 +77,13 @@ const Login = () => {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 rounded-md border border-input bg-background"
+              onChange={handleEmailChange}
+              className={`w-full p-2 rounded-md border ${
+                emailError ? "border-red-500" : "border-input"
+              } bg-background`}
               required
             />
+            {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
           </div>
 
           <div>
