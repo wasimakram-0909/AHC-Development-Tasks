@@ -35,7 +35,7 @@ const Login = () => {
           description: "You have successfully logged in",
           duration: 5000,
         });
-        navigate("/");
+        navigate("/home");
       }
     } catch (error: any) {
       toast({

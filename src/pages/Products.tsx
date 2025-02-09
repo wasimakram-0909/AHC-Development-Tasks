@@ -126,7 +126,7 @@ const Products = () => {
 
         {/* Filters */}
         {showFilters && (
-          <div className="mb-8 p-4 bg-white rounded-lg shadow-lg animate-in">
+          <div className="mb-8 p-4 bg-white rounded-lg shadow-lg animate-in opacity-100">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="font-semibold mb-3">Categories</h3>

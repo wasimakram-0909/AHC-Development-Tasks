@@ -1,8 +1,10 @@
 
 import { useState, useEffect } from "react";
 import { ShoppingCart, Heart, LogIn, LogOut, Menu, X } from "lucide-react";
+// import { useNavigate } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -24,6 +26,7 @@ const Navigation = () => {
   const location = useLocation();
   const { cartItems, wishlistItems } = useCart();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get initial session
@@ -54,6 +57,7 @@ const Navigation = () => {
         description: "Failed to log out. Please try again.",
       });
     } else {
+      navigate("/login");
       toast({
         title: "Success",
         description: "You have been logged out successfully.",
@@ -79,7 +83,7 @@ const Navigation = () => {
         <div className={`${isMenuOpen 
           ? 'absolute top-full left-0 right-0 bg-white shadow-lg p-4 lg:p-0 lg:shadow-none' 
           : 'hidden'} lg:flex lg:static lg:bg-transparent items-center space-y-2 lg:space-y-0 lg:space-x-8`}>
-          <Link to="/" className="block lg:inline">
+          <Link to="/home" className="block lg:inline">
             <Button 
               variant={isActive("/") ? "default" : "ghost"} 
               className="w-full lg:w-auto hover-lift"
