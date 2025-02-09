@@ -1,7 +1,9 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Product } from "@/types/product";
-import { useToast } from "@/components/ui/use-toast";
+import { notifySuccess, notifyError } from "@/components/ToastProvider"; 
+
+
 
 interface CartContextType {
   cartItems: Product[];
@@ -20,24 +22,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [wishlistItems, setWishlistItems] = useState<Product[]>([]);
-  const { toast } = useToast();
 
   const addToCart = (product: Product) => {
     if (!isInCart(product.id)) {
       setCartItems([...cartItems, product]);
-      toast({
-        title: "Added to Cart",
-        description: `${product.name} has been added to your cart.`,
-      });
+      notifySuccess("Added to Cart");
     }
   };
 
   const removeFromCart = (productId: string) => {
     setCartItems(cartItems.filter(item => item.id !== productId));
-    toast({
-      title: "Removed from Cart",
-      description: "Item has been removed from your cart.",
-    });
+    notifySuccess( "Removed from Cart");
   };
 
   const updateQuantity = (productId: string, change: number) => {
@@ -53,19 +48,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const addToWishlist = (product: Product) => {
     if (!isInWishlist(product.id)) {
       setWishlistItems([...wishlistItems, product]);
-      toast({
-        title: "Added to Wishlist",
-        description: `${product.name} has been added to your wishlist.`,
-      });
+      notifySuccess("Added to Wishlist");
     }
   };
 
   const removeFromWishlist = (productId: string) => {
     setWishlistItems(wishlistItems.filter(item => item.id !== productId));
-    toast({
-      title: "Removed from Wishlist",
-      description: "Item has been removed from your wishlist.",
-    });
+    notifySuccess( "Removed from Wishlist");
   };
 
   const isInCart = (productId: string) => {

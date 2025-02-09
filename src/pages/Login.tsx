@@ -3,14 +3,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { notifySuccess, notifyError } from "@/components/ToastProvider"; 
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,27 +23,14 @@ const Login = () => {
       });
 
       if (error) {
-        toast({
-          variant: "destructive",
-          title: "Login Failed",
-          description: error.message,
-          duration: 5000,
-        });
+        notifyError(`Login Failed: ${error.message}`)
       } else {
-        toast({
-          title: "Success",
-          description: "You have successfully logged in",
-          duration: 5000,
-        });
+        notifySuccess("You have successfully logged in");
         navigate("/home");
       }
     } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An unexpected error occurred",
-        duration: 5000,
-      });
+      notifyError(`An unexpected error occurred`)
+
     } finally {
       setIsLoading(false);
     }

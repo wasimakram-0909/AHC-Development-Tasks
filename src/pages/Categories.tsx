@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { notifyError } from "@/components/ToastProvider"; 
+
 
 interface CategoryData {
   name: string;
@@ -27,7 +28,6 @@ const CategorySkeleton = () => (
 const Categories = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<CategoryData[]>([]);
-  const { toast } = useToast();
 
   // Category descriptions mapping
   const categoryDescriptions: { [key: string]: string } = {
@@ -60,11 +60,7 @@ const Categories = () => {
         .not('category', 'is', null);
 
       if (error) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Failed to fetch categories",
-        });
+        notifyError("Failed to fetch categories");
         return;
       }
 
@@ -84,12 +80,7 @@ const Categories = () => {
 
       setCategories(categoryData);
     } catch (error) {
-      console.error("Error fetching categories:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to fetch categories",
-      });
+      notifyError("Failed to fetch categories")
     } finally {
       setLoading(false);
     }

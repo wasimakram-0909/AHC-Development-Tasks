@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { notifySuccess, notifyError } from "@/components/ToastProvider"; 
+
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -11,7 +12,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,35 +31,17 @@ const Register = () => {
 
       if (signUpError) {
         if (signUpError.message === "User already registered") {
-          toast({
-            variant: "destructive",
-            title: "Registration Failed",
-            description: "This email is already registered. Please try logging in instead.",
-            duration: 5000,
-          });
+          notifyError("This email is already registered. Please try logging in instead.")
         } else {
-          toast({
-            variant: "destructive",
-            title: "Registration Failed",
-            description: signUpError.message,
-            duration: 5000,
-          });
+          notifyError("Registration Failed")
+
         }
       } else {
-        toast({
-          title: "Success",
-          description: "Registration successful! Please check your email to verify your account.",
-          duration: 5000,
-        });
+        notifySuccess("Registration successful! Please check your email to verify your account.")
         navigate("/login");
       }
     } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An unexpected error occurred",
-        duration: 5000,
-      });
+      notifyError("An unexpected error occurred");
     } finally {
       setIsLoading(false);
     }

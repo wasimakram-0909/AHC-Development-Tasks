@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { ShoppingCart, Heart, LogIn, LogOut, Menu, X } from "lucide-react";
-// import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -18,23 +17,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useToast } from "@/components/ui/use-toast";
+import { notifySuccess, notifyError } from "@/components/ToastProvider"; 
+
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
   const location = useLocation();
   const { cartItems, wishlistItems } = useCart();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get initial session
+    // this is to get initial session 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
 
-    // Listen for auth changes
+    // this is to check for authentication. 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -51,17 +50,10 @@ const Navigation = () => {
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to log out. Please try again.",
-      });
+      notifyError("Failed to log out. Please try again.")
     } else {
       navigate("/login");
-      toast({
-        title: "Success",
-        description: "You have been logged out successfully.",
-      });
+      notifySuccess("You have been logged out successfully.")
     }
   };
 
@@ -85,7 +77,7 @@ const Navigation = () => {
           : 'hidden'} lg:flex lg:static lg:bg-transparent items-center space-y-2 lg:space-y-0 lg:space-x-8`}>
           <Link to="/home" className="block lg:inline">
             <Button 
-              variant={isActive("/") ? "default" : "ghost"} 
+              variant={isActive("/home") ? "default" : "ghost"} 
               className="w-full lg:w-auto hover-lift"
             >
               Home
