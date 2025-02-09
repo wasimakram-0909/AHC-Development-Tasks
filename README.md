@@ -39,3 +39,4 @@ This project is built with .
 - Name: Wasim Akram
 - Contact: +91 9573575873 (WhatsApp)
 - LinkedIn: https://www.linkedin.com/in/wasim-akram-11864a150
+- Email: wasimakram.baduga@gmail.com
