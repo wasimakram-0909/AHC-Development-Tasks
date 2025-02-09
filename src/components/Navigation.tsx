@@ -70,7 +70,7 @@ const Navigation = () => {
           >
             {isMenuOpen ? <X /> : <Menu />}
           </Button>
-          <Link to="/" className="text-2xl font-bold text-primary">Store</Link>
+          <Link to="/home" className="text-2xl font-bold text-primary">Store</Link>
         </div>
 
         <div className={`${isMenuOpen 
