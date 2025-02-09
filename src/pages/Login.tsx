@@ -39,15 +39,21 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error, data} = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+
+      console.log(error, data ,"=-=====");
+      
 
       if (error) {
         notifyError(`Login Failed: ${error.message}`);
       } else {
         notifySuccess("You have successfully logged in");
+        localStorage.setItem("token",data?.session?.access_token);
+
+        // redirecting home page after successful login
         navigate("/home");
       }
     } catch (error) {

@@ -53,6 +53,7 @@ const Navigation = () => {
       notifyError("Failed to log out. Please try again.")
     } else {
       navigate("/login");
+      localStorage.removeItem("token");
       notifySuccess("You have been logged out successfully.")
     }
   };
