@@ -42,10 +42,7 @@ const Login = () => {
       const { error, data} = await supabase.auth.signInWithPassword({
         email,
         password,
-      });
-
-      console.log(error, data ,"=-=====");
-      
+      });      
 
       if (error) {
         notifyError(`Login Failed: ${error.message}`);
