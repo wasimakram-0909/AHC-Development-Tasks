@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { notifySuccess, notifyError } from "@/components/ToastProvider";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,8 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
 
   // Function to validate email
   const validateEmail = (email) => {
@@ -90,14 +94,24 @@ const Login = () => {
             <label htmlFor="password" className="block text-sm font-medium mb-2">
               Password
             </label>
+            <div className="relative">
+
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 rounded-md border border-input bg-background"
               required
             />
+            <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-2 text-xl text-neutral"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              </div>
           </div>
 
           <div className="flex items-center justify-between">
