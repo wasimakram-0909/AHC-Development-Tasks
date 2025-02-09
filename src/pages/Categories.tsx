@@ -29,7 +29,7 @@ const Categories = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<CategoryData[]>([]);
 
-  // Category descriptions mapping
+  // Mapping categories description
   const categoryDescriptions: { [key: string]: string } = {
     "Perfumes": "Discover luxurious Arabian fragrances",
     "Home Decor": "Traditional and modern Arabian home decoration",
@@ -40,7 +40,7 @@ const Categories = () => {
     "Art": "Beautiful Arabic and Islamic art pieces"
   };
 
-  // Image mapping for categories
+  // Mapping images for categories
   const categoryImages: { [key: string]: string } = {
     "Perfumes": "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
     "Home Decor": "https://images.unsplash.com/photo-1584285405429-136bf988919c",
