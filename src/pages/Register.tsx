@@ -71,7 +71,7 @@ const Register = () => {
           notifyError("Registration Failed");
         }
       } else {
-        notifySuccess("Registration successful! Please check your email to verify your account.");
+        notifySuccess("Registration successful! Please Login");
         navigate("/login");
       }
     } catch (error) {
