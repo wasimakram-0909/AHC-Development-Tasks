@@ -5,6 +5,13 @@ import Navigation from "@/components/Navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { notifyError } from "@/components/ToastProvider"; 
+import perfumes from "../assets/perfumes_img.jpeg";
+import homeDecore from "../assets/home_decore.jpeg";
+import fashion from "../assets/fashion.jpeg";
+import kitchen from "../assets/kitchen.jpeg";
+import accessories from "../assets/accessories.jpeg";
+import food from "../assets/food.jpeg";
+import art from "../assets/art.jpeg";
 
 
 interface CategoryData {
@@ -42,13 +49,13 @@ const Categories = () => {
 
   // Mapping images for categories
   const categoryImages: { [key: string]: string } = {
-    "Perfumes": "https://images.unsplash.com/photo-1523293182086-7651a899d37f",
-    "Home Decor": "https://images.unsplash.com/photo-1584285405429-136bf988919c",
-    "Fashion": "https://images.unsplash.com/photo-1469041797191-50ace28483c3",
-    "Kitchen": "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b",
-    "Accessories": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-    "Food": "https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd",
-    "Art": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+    "Perfumes": perfumes,
+    "Home Decor": homeDecore,
+    "Fashion": fashion,
+    "Kitchen": kitchen,
+    "Accessories": accessories,
+    "Food": food,
+    "Art": art
   };
 
   const fetchCategories = async () => {
@@ -73,7 +80,7 @@ const Categories = () => {
       // Transform into CategoryData array
       const categoryData: CategoryData[] = Object.entries(categoryCounts).map(([name, count]) => ({
         name,
-        image: categoryImages[name] || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+        image: categoryImages[name] || art,
         description: categoryDescriptions[name] || `Explore our ${name} collection`,
         productCount: count
       }));
