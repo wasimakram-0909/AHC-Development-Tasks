@@ -62,6 +62,13 @@ Following techstack used to complete the task.
 - Wishlist 
 ![wishlist](readme_assets/wishlist.png)
 
+- Mobile responsive screens
+![login](readme_assets/mobile_login.png)
+![home](readme_assets/mobile_home.png)
+![products](readme_assets/mobile_products.png)
+![cart](readme_assets/mobile_cart.png)
+
+
 
 
 <!-- ![Products List](readme_assets/products_list.png) -->
