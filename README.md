@@ -41,6 +41,13 @@ Following techstack used to complete the task.
 - shadcn-ui
 - Tailwind CSS
 
+
+## Application screens 
+
+![Login Page](readme_assets/login_page.png)
+
+
+
 ## APIs Info:
 below are the apis used in the app
  - Login api/ Token API
