@@ -12,7 +12,7 @@ const toastConfig: ToastOptions = {
 };
 
 export const notifySuccess = (message: string) => {
-  toast.success(message, toastConfig);
+  toast.success(message, {...toastConfig, style: { backgroundColor: "#9b87f5", color: "#fff" }});
 };
 
 export const notifyError = (message: string) => {

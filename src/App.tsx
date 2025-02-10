@@ -6,7 +6,6 @@ import { CartProvider } from "@/contexts/CartContext";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
@@ -27,7 +26,6 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
         <CartProvider>
           <BrowserRouter>
             <Routes>
@@ -41,14 +39,6 @@ const App = () => {
                 element={
                   <PrivateRoute>
                     <Index />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/product/:id"
-                element={
-                  <PrivateRoute>
-                    <ProductDetail />
                   </PrivateRoute>
                 }
               />
@@ -91,7 +81,6 @@ const App = () => {
             <ToastProvider />
           </BrowserRouter>
         </CartProvider>
-      </TooltipProvider>
     </QueryClientProvider>
   );
 };
