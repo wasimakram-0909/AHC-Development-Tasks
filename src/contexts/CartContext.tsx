@@ -26,13 +26,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const addToCart = (product: Product) => {
     if (!isInCart(product.id)) {
       setCartItems([...cartItems, product]);
-      notifySuccess("Added to Cart");
+    // notifySuccess("Added to Cart");
     }
   };
 
   const removeFromCart = (productId: string) => {
     setCartItems(cartItems.filter(item => item.id !== productId));
-    notifySuccess( "Removed from Cart");
+    // notifySuccess( "Removed from Cart");
   };
 
   const updateQuantity = (productId: string, change: number) => {
@@ -48,13 +48,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const addToWishlist = (product: Product) => {
     if (!isInWishlist(product.id)) {
       setWishlistItems([...wishlistItems, product]);
-      notifySuccess("Added to Wishlist");
+      // notifySuccess("Added to Wishlist");
     }
   };
 
   const removeFromWishlist = (productId: string) => {
     setWishlistItems(wishlistItems.filter(item => item.id !== productId));
-    notifySuccess( "Removed from Wishlist");
+    // notifySuccess( "Removed from Wishlist");
   };
 
   const isInCart = (productId: string) => {

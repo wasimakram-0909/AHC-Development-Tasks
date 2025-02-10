@@ -60,7 +60,7 @@ const Navigation = () => {
 
   return (
     <nav className="glass fixed w-full z-50 px-2 py-3">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between px-0 sm:px-4">
         <div className="flex items-center space-x-4">
           <Button
             variant="ghost"
