@@ -7,10 +7,12 @@ import { ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Product } from "@/types/product";
+import homebg from "../assets/home_bg.jpeg"
 
 const Index = () => {
   const navigate = useNavigate();
 
+  // getting featured products from supabase from query
   const { data: products, isLoading: isLoadingProducts } = useQuery({
     queryKey: ['featured-products'],
     queryFn: async () => {
@@ -24,6 +26,7 @@ const Index = () => {
     }
   });
 
+  // getting categories from supabase using query
   const { data: categories, isLoading: isLoadingCategories } = useQuery({
     queryKey: ['featured-categories'],
     queryFn: async () => {
@@ -54,7 +57,10 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-900 via-primary to-secondary">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1466442929976-97f336a657be')] bg-cover bg-center"></div>
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${homebg})` }}
+          ></div>
         </div>
         <div className="relative text-center text-white z-10 container mx-auto px-4 py-20">
           <h1 className="text-6xl md:text-7xl font-bold mb-8 animate-fade-in">
