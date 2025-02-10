@@ -1,7 +1,9 @@
 ## Project info
 
-**URL**: https://imaginative-fudge-a9e426.netlify.app/
-**URL**: https://ahctask.netlify.app/login
+- This project has a user authentication flow and product listing with filters, cart and wishlist features. 
+- User can login/signup with email and password.
+- User will be redirected to products listing page after login.
+
 
 ## How can I edit and run the project locally
 
@@ -46,78 +48,35 @@ below are the apis used in the app
  - Logout API
 
 
-
  Login API Curl
 
  ```
- curl 'https://tmnpkvhzhyfhdhsgbmkf.supabase.co/auth/v1/token?grant_type=password' \
-  -H 'accept: */*' \
-  -H 'accept-language: en-US,en;q=0.9' \
-  -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
-  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
-  -H 'content-type: application/json;charset=UTF-8' \
-  -H 'origin: https://ahctask.netlify.app' \
-  -H 'priority: u=1, i' \
-  -H 'referer: https://ahctask.netlify.app/' \
-  -H 'sec-ch-ua: "Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"' \
-  -H 'sec-ch-ua-mobile: ?0' \
-  -H 'sec-ch-ua-platform: "macOS"' \
-  -H 'sec-fetch-dest: empty' \
-  -H 'sec-fetch-mode: cors' \
-  -H 'sec-fetch-site: cross-site' \
-  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36' \
-  -H 'x-client-info: supabase-js-web/2.48.1' \
-  -H 'x-supabase-api-version: 2024-01-01' \
-  --data-raw '{"email":"wasimakram.baduga@gmail.com","password":"123456","gotrue_meta_security":{}}'
+  curl --location 'https://tmnpkvhzhyfhdhsgbmkf.supabase.co/auth/v1/token?grant_type=password' \
+    --header 'accept-language: en-US,en;q=0.9' \
+    --header 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
+    --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{"email":"wasimakram.baduga@gmail.com","password":"123456","gotrue_meta_security":{}}'
  
  ```
+
 
  Products List API curl
 
  ```
-curl 'https://tmnpkvhzhyfhdhsgbmkf.supabase.co/rest/v1/products?select=*&limit=6' \
-  -H 'accept: */*' \
-  -H 'accept-language: en-US,en;q=0.9' \
-  -H 'accept-profile: public' \
-  -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
-  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IkFDSURSYjdkYXZ6ZEJseHQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3RtbnBrdmh6aHlmaGRoc2dibWtmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJkNzdiMmFmZi04ODBkLTQ4MDAtOTU5Yi04YzYxY2IyNmQyOGQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzM5MTExNDM3LCJpYXQiOjE3MzkxMDc4MzcsImVtYWlsIjoid2FzaW1ha3JhbS5iYWR1Z2FAZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbCI6Indhc2ltYWtyYW0uYmFkdWdhQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJzdF9uYW1lIjoid2FzaW0iLCJsYXN0X25hbWUiOiJha3JhbSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZDc3YjJhZmYtODgwZC00ODAwLTk1OWItOGM2MWNiMjZkMjhkIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MzkxMDc4Mzd9XSwic2Vzc2lvbl9pZCI6IjQ1ZGMyMzFjLWI5NDAtNGJkZS1hZDBkLTc1NzdhYmFiOWFmMCIsImlzX2Fub255bW91cyI6ZmFsc2V9.icIRRdhBfpDucoDVIqBwonAAwlxrg9Bv9ruz1YkORM0' \
-  -H 'origin: https://ahctask.netlify.app' \
-  -H 'priority: u=1, i' \
-  -H 'referer: https://ahctask.netlify.app/' \
-  -H 'sec-ch-ua: "Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"' \
-  -H 'sec-ch-ua-mobile: ?0' \
-  -H 'sec-ch-ua-platform: "macOS"' \
-  -H 'sec-fetch-dest: empty' \
-  -H 'sec-fetch-mode: cors' \
-  -H 'sec-fetch-site: cross-site' \
-  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36' \
-  -H 'x-client-info: supabase-js-web/2.48.1'
+  curl --location 'https://tmnpkvhzhyfhdhsgbmkf.supabase.co/rest/v1/products?select=*&limit=6' \
+    --header 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
+    --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IkFDSURSYjdkYXZ6ZEJseHQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3RtbnBrdmh6aHlmaGRoc2dibWtmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJkNzdiMmFmZi04ODBkLTQ4MDAtOTU5Yi04YzYxY2IyNmQyOGQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzM5MTczMzIyLCJpYXQiOjE3MzkxNjk3MjIsImVtYWlsIjoid2FzaW1ha3JhbS5iYWR1Z2FAZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbCI6Indhc2ltYWtyYW0uYmFkdWdhQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJzdF9uYW1lIjoid2FzaW0iLCJsYXN0X25hbWUiOiJha3JhbSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZDc3YjJhZmYtODgwZC00ODAwLTk1OWItOGM2MWNiMjZkMjhkIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MzkxNjk3MjJ9XSwic2Vzc2lvbl9pZCI6ImM0NTNmYmNiLTkzN2EtNGFlZS1hZmU3LTk1MTNiZjBjYmY2YyIsImlzX2Fub255bW91cyI6ZmFsc2V9.RH_0dkVtV7f_o2rFaZ5h-DsGfyY0Uc9ZX-rBiw8LyYU'
 
  ```
 
  Logout API curl
 
  ```
- curl 'https://tmnpkvhzhyfhdhsgbmkf.supabase.co/auth/v1/logout?scope=global' \
-  -X 'POST' \
-  -H 'accept: */*' \
-  -H 'accept-language: en-US,en;q=0.9' \
-  -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
-  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IkFDSURSYjdkYXZ6ZEJseHQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3RtbnBrdmh6aHlmaGRoc2dibWtmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJkNzdiMmFmZi04ODBkLTQ4MDAtOTU5Yi04YzYxY2IyNmQyOGQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzM5MTExNzIzLCJpYXQiOjE3MzkxMDgxMjMsImVtYWlsIjoid2FzaW1ha3JhbS5iYWR1Z2FAZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbCI6Indhc2ltYWtyYW0uYmFkdWdhQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJzdF9uYW1lIjoid2FzaW0iLCJsYXN0X25hbWUiOiJha3JhbSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZDc3YjJhZmYtODgwZC00ODAwLTk1OWItOGM2MWNiMjZkMjhkIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MzkxMDgxMjN9XSwic2Vzc2lvbl9pZCI6ImU2NzU2NjVjLWRmNjItNGZjZi05MzIyLThlZTAyZTZjODI3NCIsImlzX2Fub255bW91cyI6ZmFsc2V9.Cl1pohjPqWcbE-1lSRhtOumh--gAPJMcGaOq4PYdhXg' \
-  -H 'content-length: 0' \
-  -H 'content-type: application/json;charset=UTF-8' \
-  -H 'origin: https://ahctask.netlify.app' \
-  -H 'priority: u=1, i' \
-  -H 'referer: https://ahctask.netlify.app/' \
-  -H 'sec-ch-ua: "Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"' \
-  -H 'sec-ch-ua-mobile: ?0' \
-  -H 'sec-ch-ua-platform: "macOS"' \
-  -H 'sec-fetch-dest: empty' \
-  -H 'sec-fetch-mode: cors' \
-  -H 'sec-fetch-site: cross-site' \
-  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36' \
-  -H 'x-client-info: supabase-js-web/2.48.1' \
-  -H 'x-supabase-api-version: 2024-01-01'
+  curl --location --request POST 'https://tmnpkvhzhyfhdhsgbmkf.supabase.co/auth/v1/logout?scope=global' \
+    --header 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtbnBrdmh6aHlmaGRoc2dibWtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5NDQ4MDQsImV4cCI6MjA1NDUyMDgwNH0.tRH9y5Qg00LZLa2uhmiYhokk3UKEKBgagKcUi0PnAnE' \
+    --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IkFDSURSYjdkYXZ6ZEJseHQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3RtbnBrdmh6aHlmaGRoc2dibWtmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJkNzdiMmFmZi04ODBkLTQ4MDAtOTU5Yi04YzYxY2IyNmQyOGQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzM5MTczNjY5LCJpYXQiOjE3MzkxNzAwNjksImVtYWlsIjoid2FzaW1ha3JhbS5iYWR1Z2FAZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbCI6Indhc2ltYWtyYW0uYmFkdWdhQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJzdF9uYW1lIjoid2FzaW0iLCJsYXN0X25hbWUiOiJha3JhbSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZDc3YjJhZmYtODgwZC00ODAwLTk1OWItOGM2MWNiMjZkMjhkIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MzkxNzAwNjl9XSwic2Vzc2lvbl9pZCI6IjE3MjJkZmE5LTVkNWMtNDRkYi05NTkzLTY4NTQwZTMxZjViOCIsImlzX2Fub255bW91cyI6ZmFsc2V9.6z_iWRjH76GmDHU2BuU3RrwyQ03XVz_QHCa3hP3akf8'
+  
  ```
 
 
