@@ -45,7 +45,6 @@ Following techstack used to complete the task.
 ## Application screens 
 
 - Login Page
-![Login Page](readme_assets/login_page.png)
 
 - Home Page
 ![Login Page](readme_assets/home.png)
