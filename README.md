@@ -45,7 +45,10 @@ Following techstack used to complete the task.
 ## Application screens 
 
 - Login Page
-![login page](readme_assets/login_page.png)
+![login page](readme_assets/login.png)
+
+- Signup Page
+![sign up](readme_assets/signup.png)
 
 - Home Page
 ![Home page](readme_assets/home.png)
@@ -54,10 +57,10 @@ Following techstack used to complete the task.
 ![Products List](readme_assets/products_list.png)
 
 - Categories
-![Products List](readme_assets/categories.png)
+![categories](readme_assets/categories.png)
 
 - Wishlist 
-![Products List](readme_assets/wishlist.png)
+![wishlist](readme_assets/wishlist.png)
 
 
 
