@@ -44,7 +44,22 @@ Following techstack used to complete the task.
 
 ## Application screens 
 
+- Login Page
 ![Login Page](readme_assets/login_page.png)
+
+- Products List
+![Products List](readme_assets/products_list.png)
+
+- Categories
+![Products List](readme_assets/categories.png)
+
+- Wishlist 
+![Products List](readme_assets/wishlist.png)
+
+
+
+<!-- ![Products List](readme_assets/products_list.png) -->
+
 
 
 
