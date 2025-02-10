@@ -47,6 +47,9 @@ Following techstack used to complete the task.
 - Login Page
 ![Login Page](readme_assets/login_page.png)
 
+- Home Page
+![Login Page](readme_assets/home.png)
+
 - Products List
 ![Products List](readme_assets/products_list.png)
 
